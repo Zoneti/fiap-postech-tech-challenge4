@@ -69,6 +69,7 @@ if st.sidebar.button('Projetar'):
     with col2:
         st.text('Lista de preços Projetados')
         previsao.columns = ['Data', 'Preco']
+        previsao = previsao.groupby(['Data']).sum()
         previsao
 else:
     col1.plotly_chart(fig_preco, use_container_width=True)
