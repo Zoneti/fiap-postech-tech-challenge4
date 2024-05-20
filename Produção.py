@@ -58,13 +58,13 @@ fAno = st.sidebar.multiselect(
     )
 
 fContinentes = st.sidebar.multiselect(
-        'Selecione um ou mais continentes:',
+        'Selecione um ou mais Continentes:',
         options=df_producao['Continent'].unique()
         #,default=df_producao['Continent'].unique()
     )
 
 fPaises = st.sidebar.multiselect(
-        'Selecione um ou mais paises:',
+        'Selecione um ou mais Paises:',
         options=df_producao['Country'].sort_values().unique()
         #,default='Brazil'
     )
