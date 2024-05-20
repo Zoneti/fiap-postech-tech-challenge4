@@ -7,7 +7,7 @@ st.set_page_config(layout='wide')
 st.header('Variação do Preço do Petróleo')
 st.subheader('Variação com base nos eventos globais')
 
-df = pd.read_csv("bases\data_ext\df_preco_barril_eventos.csv", sep=";", decimal=".")
+df = pd.read_csv("bases/data_ext/df_preco_barril_eventos.csv", sep=";", decimal=".")
 df["Data"] = pd.to_datetime(df['Data'])
 
 
