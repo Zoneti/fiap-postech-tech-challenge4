@@ -75,7 +75,6 @@ if st.button('Projetar'):
     
     df1 = pd.read_csv("bases/modelo/df_modelo_10.csv", sep=";", parse_dates = [0], decimal=".")
     previsao = predict_Prophet(df1, prophet_model, input_tempo_experiencia)
-    previsao
     
     col1.plotly_chart(plotly_prev(df1, previsao), use_container_width=True)
     with col2:
