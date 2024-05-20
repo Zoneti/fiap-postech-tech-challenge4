@@ -47,6 +47,28 @@ def predict_Prophet(df, modelo, periodo):
 
     return pred
 
+def plotly_prev (ori, pred):
+    fig = go.Figure()
+    
+    ori = ori[ori['ds'] >= pd.to_datetime('04-15-2024')]
+    
+    fig.add_trace(
+        go.Scatter(x=ori.ds, y=ori.y,name='Valor Original')
+        
+    )
+    fig.add_trace(
+            go.Scatter(x=pred.ds, y=pred.y,name='Valor Previsto')
+            
+        )
+
+    fig.update_layout(
+        title='Projeção de Preço - Barril de Petróleo',
+        xaxis_title='Data',
+        yaxis_title='Preço US$'
+    )
+    
+    return fig
+
 def plot_prev (ori, pred, dateLimit=None, test=None):
     fig, ax = plt.subplots(figsize=(30,8))
 
@@ -82,19 +104,4 @@ if st.button('Projetar'):
     previsao
     st.pyplot(plot_prev(df1,previsao, '04-01-2024'))
     
-    fig = go.Figure()
-    fig.add_trace(
-        go.Scatter(x=df1.ds, y=df1.y,name='Valor Original')
-        
-    )
-    fig.add_trace(
-            go.Scatter(x=previsao.ds, y=previsao.y,name='Valor Previsto')
-            
-        )
-
-    fig.update_layout(
-        title='Projeção de Preço - Barril de Petróleo',
-        xaxis_title='Data',
-        yaxis_title='Preço US$'
-    )
-    st.plotly_chart(fig)
+    st.plotly_chart(plotly_prev(df1, previsao))
