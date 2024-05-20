@@ -105,3 +105,5 @@ if st.button('Projetar'):
     st.pyplot(plot_prev(df1,previsao, '04-01-2024'))
     
     st.plotly_chart(plotly_prev(df1, previsao))
+else:
+    st.plotly_chart(fig_preco, use_container_width=True)
