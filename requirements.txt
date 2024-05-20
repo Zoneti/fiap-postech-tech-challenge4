@@ -9,4 +9,3 @@ joblib>=0.11,<=1.0.1
 plotly
 prophet
 datetime
-pickle
