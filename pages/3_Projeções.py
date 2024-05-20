@@ -3,6 +3,9 @@ import pandas as pd
 import plotly.express as px
 import pickle
 from prophet import Prophet
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import seaborn as sns
 
 st.set_page_config(layout='wide')
 
@@ -42,6 +45,32 @@ def predict_Prophet(df, modelo, periodo):
     pred[['ds', 'y']] = forecast[['ds', 'yhat']]
 
     return pred
+
+def plot_prev (ori, pred, dateLimit=None, test=None):
+    fig, ax = plt.subplots(figsize=(30,8))
+
+    if dateLimit is not None:
+        ori = ori[ori['ds'] >= pd.to_datetime(dateLimit)]
+
+    sns.lineplot(ori, x='ds', y='y', ax=ax, label='Preço Barril', color='black')
+
+    if test is not None:
+        sns.lineplot(test, x='ds', y='y', ax=ax, color='blue', label='Valor Teste')
+
+    sns.lineplot(pred, x='ds', y='y', ax=ax, color='red', label='Valor Previsto')
+
+
+    ax.grid(True, color='black', linewidth=0.2, axis='y')
+
+    ax.legend()
+
+    ax.set_title('Previsão Preço Barril Petroleo', fontsize=15)
+    ax.set_xlabel('')
+    ax.set_ylabel('Preço Barril Petroleo')
+
+    #plt.show()
+    return fig
+
 #Predições 
 if st.button('Projetar'):
     with open('prophet_model.pkl', 'rb') as f:
@@ -50,3 +79,4 @@ if st.button('Projetar'):
     df1 = pd.read_csv("bases/modelo/df_modelo_10.csv", sep=";", parse_dates = [0], decimal=".")
     previsao = predict_Prophet(df1, prophet_model, input_tempo_experiencia)
     previsao
+    st.pyplot(plot_prev(df1,previsao))
