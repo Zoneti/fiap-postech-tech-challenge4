@@ -34,5 +34,6 @@ col1.plotly_chart(fig_preco, use_container_width=True)
 
 #Predições 
 if st.button('Projetar'):
-    with open('../prophet_model.pkl', 'rb') as f:
+    with open('prophet_model.pkl', 'rb') as f:
         prophet_model = pickle.load(f)
+        
