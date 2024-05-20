@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import pickle
 from prophet import Prophet
 import matplotlib.pyplot as plt
@@ -80,3 +81,20 @@ if st.button('Projetar'):
     previsao = predict_Prophet(df1, prophet_model, input_tempo_experiencia)
     previsao
     st.pyplot(plot_prev(df1,previsao, '04-01-2024'))
+    
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(x=df1.ds, y=df1.y,name='Valor Original')
+        
+    )
+    fig.add_trace(
+            go.Scatter(x=previsao.ds, y=previsao.y,name='Valor Previsto')
+            
+        )
+
+    fig.update_layout(
+        title='Projeção de Preço - Barril de Petróleo',
+        xaxis_title='Data',
+        yaxis_title='Preço US$'
+    )
+    st.plotly_chart(fig)
