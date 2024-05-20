@@ -69,7 +69,7 @@ def plotly_prev (ori, pred):
     
     return fig
 #Predições 
-if st.button('Projetar'):
+if st.sidebar.button('Projetar'):
     with open('prophet_model.pkl', 'rb') as f:
         prophet_model = pickle.load(f)
     
