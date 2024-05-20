@@ -5,7 +5,7 @@ import plotly.express as px
 st.set_page_config(layout='wide')
 
 st.header('Variação do Preço do Petróleo')
-st.subheader('Variação com base nos eventos globais')
+st.text('Variação com base nos eventos globais.')
 
 df = pd.read_csv("bases/data_ext/df_preco_barril_eventos.csv", sep=";", decimal=".")
 df["Data"] = pd.to_datetime(df['Data'])
@@ -15,13 +15,13 @@ df["Data"] = pd.to_datetime(df['Data'])
 st.sidebar.subheader('Filtros:')
 
 fAno = st.sidebar.multiselect(
-        'Selecione um ou mais anos:',
+        'Selecione um ou mais Anos:',
         options=df['Ano'].unique()
         #,default=df_producao['Continent'].unique()
     )
 
 fEvents = st.sidebar.multiselect(
-        'Selecione um ou mais continentes:',
+        'Selecione um ou mais Eventos:',
         options=df['Eventos'].unique()
         #,default=df_producao['Continent'].unique()
     )
@@ -33,12 +33,13 @@ filtered_df = df[
 # DIVISAO DOS 2 SETORES DA METADE DE CIMA DA PAGINA DO STREAMLIT
 col1, col2 = st.columns(2)
 
-df_ano = filtered_df.groupby(['Ano'])['Preco'].sum().reset_index()
-fig_preco = px.line(df_ano, x="Ano", y="Preco", markers=True, title="Preço do petróleo anual")
+df_ano = filtered_df.groupby(['Data','Ano']).sum().reset_index()
+fig_preco = px.line(df_ano, x="Data", y="Preco",  title="Preço do petróleo anual")
 col1.plotly_chart(fig_preco, use_container_width=True)
 
 df_events = filtered_df[['Ano','Eventos']]
 df_events = df_events.drop_duplicates()
+df_events = df_events.groupby(['Ano']).sum()
 with col2:
     st.text('Lista de eventos mundiais')
     df_events

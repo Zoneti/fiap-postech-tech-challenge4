@@ -5,7 +5,7 @@ import plotly.express as px
 st.set_page_config(layout='wide')
 
 st.header('Produção de Petróleo - IPEA')
-st.subheader('Produção Mundial em Barris dos Ultimos 20 Anos.')
+st.text('Produção mundial em barris dos ultimos 20 Anos.')
 
 # BREVE TRATAMENTO DA BASE GERAL
 df_producao = pd.read_csv("bases/data_ext/df_producao_petroleo_dash.csv", sep=";", decimal=".")
