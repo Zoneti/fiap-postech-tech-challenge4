@@ -34,7 +34,7 @@ input_tempo_experiencia = float(st.sidebar.slider('Selecione a quantidade de dia
 input_tempo_experiencia
 col1, col2 = st.columns(2)
 fig_preco = px.line(filtered_df, x="Data", y="Preco",  title="Preço do petróleo")
-col1.plotly_chart(fig_preco, use_container_width=True)
+
 
 def predict_Prophet(df, modelo, periodo):
     pred = pd.DataFrame(columns=['ds', 'y'])
@@ -50,7 +50,7 @@ def predict_Prophet(df, modelo, periodo):
 def plotly_prev (ori, pred):
     fig = go.Figure()
     
-    ori = ori[ori['ds'] >= pd.to_datetime('04-15-2024')]
+    ori = ori[ori['ds'] >= pd.to_datetime('04-01-2024')]
     
     fig.add_trace(
         go.Scatter(x=ori.ds, y=ori.y,name='Valor Original')
@@ -68,32 +68,6 @@ def plotly_prev (ori, pred):
     )
     
     return fig
-
-def plot_prev (ori, pred, dateLimit=None, test=None):
-    fig, ax = plt.subplots(figsize=(30,8))
-
-    if dateLimit is not None:
-        ori = ori[ori['ds'] >= pd.to_datetime(dateLimit)]
-
-    sns.lineplot(ori, x='ds', y='y', ax=ax, label='Preço Barril', color='black')
-
-    if test is not None:
-        sns.lineplot(test, x='ds', y='y', ax=ax, color='blue', label='Valor Teste')
-
-    sns.lineplot(pred, x='ds', y='y', ax=ax, color='red', label='Valor Previsto')
-
-
-    ax.grid(True, color='black', linewidth=0.2, axis='y')
-
-    ax.legend()
-
-    ax.set_title('Previsão Preço Barril Petroleo', fontsize=15)
-    ax.set_xlabel('')
-    ax.set_ylabel('Preço Barril Petroleo')
-
-    #plt.show()
-    return fig
-
 #Predições 
 if st.button('Projetar'):
     with open('prophet_model.pkl', 'rb') as f:
@@ -102,8 +76,10 @@ if st.button('Projetar'):
     df1 = pd.read_csv("bases/modelo/df_modelo_10.csv", sep=";", parse_dates = [0], decimal=".")
     previsao = predict_Prophet(df1, prophet_model, input_tempo_experiencia)
     previsao
-    st.pyplot(plot_prev(df1,previsao, '04-01-2024'))
     
-    st.plotly_chart(plotly_prev(df1, previsao))
+    col1.plotly_chart(plotly_prev(df1, previsao), use_container_width=True)
+    with col2:
+        st.text('Lista de preços Projetados')
+        previsao
 else:
-    st.plotly_chart(fig_preco, use_container_width=True)
+    col1.plotly_chart(fig_preco, use_container_width=True)
