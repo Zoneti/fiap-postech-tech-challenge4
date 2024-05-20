@@ -20,7 +20,7 @@ df["Data"] = pd.to_datetime(df['Data'])
 st.sidebar.subheader('Parâmetros:')
 
 input_tempo_experiencia = float(st.sidebar.slider('Selecione a quantidade de dias para a projeção:', 0,30))
-st.text('Dias para projeção: ',input_tempo_experiencia)
+st.write('Dias para projeção: ',input_tempo_experiencia)
 col1, col2 = st.columns(2)
 fig_preco = px.line(df, x="Data", y="Preco",  title="Preço do petróleo")
 
