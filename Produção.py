@@ -42,7 +42,7 @@ fig_conti = px.line(df_agrupado_cont, x="Ano", y="Quantidade", color='Continent'
 col2.plotly_chart(fig_conti, use_container_width=True)
 
 
-# DIVISAO DOS 3 SETORES DA METADE DE BAIXO DA PAGINA DO STREAMLIT
+# DIVISAO DOS 2 SETORES DA METADE DE BAIXO DA PAGINA DO STREAMLIT
 st.markdown("<hr>", unsafe_allow_html=True)
 
 st.subheader('Produção Regional dos Ultimos 20 Anos.')
@@ -103,7 +103,7 @@ else:
     col4.plotly_chart(fig_pie_conti, use_container_width=True)
 
 
-
+# DIVISAO DOS 2 SETORES DA METADE DE BAIXO DA PAGINA DO STREAMLIT
 col5, col6 = st.columns(2)
 
 fig_conti_reg = px.line(filtered_df2, x="Ano", y="Quantidade", color='Country', markers=True, title="Produção de Petróleo Anual por Pais")
