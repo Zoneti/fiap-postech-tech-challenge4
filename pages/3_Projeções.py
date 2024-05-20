@@ -79,4 +79,4 @@ if st.button('Projetar'):
     df1 = pd.read_csv("bases/modelo/df_modelo_10.csv", sep=";", parse_dates = [0], decimal=".")
     previsao = predict_Prophet(df1, prophet_model, input_tempo_experiencia)
     previsao
-    st.pyplot(plot_prev(df1,previsao))
+    st.pyplot(plot_prev(df1,previsao, '04-01-2024'))
