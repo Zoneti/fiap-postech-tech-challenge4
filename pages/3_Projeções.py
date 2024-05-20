@@ -15,13 +15,14 @@ st.text('É feita uma projeção em um algoritimo de ML com base nos dias seleci
 
 df = pd.read_csv("bases/modelo/df_modelo.csv", sep=";", decimal=".")
 df["Data"] = pd.to_datetime(df['Data'])
+df.columns = ['ds', 'y']
 
 
 # FILTRO LATERAL DE ANO, CONTINENTE E PAISES
 st.sidebar.subheader('Parâmetros:')
 
 input_tempo_experiencia = float(st.sidebar.slider('Selecione a quantidade de dias para a projeção:', 0,30))
-input_tempo_experiencia
+st.text('Dias para projeção: ',input_tempo_experiencia)
 col1, col2 = st.columns(2)
 fig_preco = px.line(df, x="Data", y="Preco",  title="Preço do petróleo")
 
