@@ -47,6 +47,6 @@ if st.button('Projetar'):
     with open('prophet_model.pkl', 'rb') as f:
         prophet_model = pickle.load(f)
     
-    df1 = pd.read_csv("bases/modelo/df_modelo_10.csv", sep=";", decimal=".")
+    df1 = pd.read_csv("bases/modelo/df_modelo_10.csv", sep=";", parse_dates = [0], decimal=".")
     previsao = predict_Prophet(df1, prophet_model, input_tempo_experiencia)
     previsao
