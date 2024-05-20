@@ -8,7 +8,7 @@ st.header('Produção de Petróleo - IPEA')
 st.subheader('Produção Mundial em Barris dos Ultimos 20 Anos.')
 
 # BREVE TRATAMENTO DA BASE GERAL
-df_producao = pd.read_csv("bases\data_ext\df_producao_petroleo_dash.csv", sep=";", decimal=".")
+df_producao = pd.read_csv("bases/data_ext/df_producao_petroleo_dash.csv", sep=";", decimal=".")
 df_producao = df_producao.loc[df_producao['Continent'] != 'World']
 df_producao["Mês"] = pd.to_datetime(df_producao['Mês'])
 df_producao = df_producao.set_index(df_producao['Mês'])
