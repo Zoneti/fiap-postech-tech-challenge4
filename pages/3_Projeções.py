@@ -15,8 +15,6 @@ st.text('É feita uma projeção em um algoritimo de ML com base nos dias seleci
 
 df = pd.read_csv("bases/modelo/df_modelo.csv", sep=";", decimal=".")
 df["Data"] = pd.to_datetime(df['Data'])
-df.columns = ['ds', 'y']
-
 
 # FILTRO LATERAL DE ANO, CONTINENTE E PAISES
 st.sidebar.subheader('Parâmetros:')
@@ -61,6 +59,7 @@ def plotly_prev (ori, pred):
     return fig
 #Predições 
 if st.sidebar.button('Projetar'):
+    df.columns = ['ds', 'y']
     with open('prophet_model.pkl', 'rb') as f:
         prophet_model = pickle.load(f)
     
